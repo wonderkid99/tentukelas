@@ -1,5 +1,5 @@
--- CREATE DATABASE IF NOT EXISTS db_pendaftaran_kelas;
--- USE db_pendaftaran_kelas;
+-- CREATE DATABASE IF NOT EXISTS db_tentukelas;
+-- USE db_tentukelas;
 
 -- Tabel untuk peran pengguna (admin, student)
 CREATE TABLE `roles` (
