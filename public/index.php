@@ -9,20 +9,25 @@ require_once __DIR__ . '/../src/Controllers/ClassController.php';
 // Contoh: index.php?page=admin-classes
 $page = $_GET['page'] ?? 'home'; // Jika parameter 'page' tidak ada, anggap 'home'
 
+// ...
 switch ($page) {
     case 'admin-classes':
         $controller = new ClassController();
         $controller->index();
         break;
-    
-    // Anda bisa menambahkan case lain di sini untuk halaman lain
-    // case 'student-dashboard':
-    //     // ...
-    //     break;
+
+    // --- TAMBAHKAN DUA CASE INI ---
+    case 'admin-classes-create':
+        $controller = new ClassController();
+        $controller->create();
+        break;
+
+    case 'admin-classes-store':
+        $controller = new ClassController();
+        $controller->store();
+        break;
+    // ---------------------------------
 
     default:
-        // Halaman default jika 'page' tidak cocok
-        http_response_code(404);
-        echo "<h1>404 - Halaman Tidak Ditemukan</h1>";
-        break;
+        // ...
 }

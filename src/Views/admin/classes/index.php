@@ -46,8 +46,8 @@
   <body>
     <div class="container">
       <div class="header">
-        <h1>Manajemen Kelas</h1>
-        <a href="#" class="btn">+ Tambah Kelas Baru</a>
+          <h1>Manajemen Kelas</h1>
+          <a href="index.php?page=admin-classes-create" class="btn">+ Tambah Kelas Baru</a>
       </div>
 
       <table>
