@@ -77,8 +77,9 @@
               WIB
             </td>
             <td>
-              <a href="#">Edit</a> |
-              <a href="#">Hapus</a>
+                <a href="index.php?page=admin-classes-edit&id=<?= $class['id'] ?>">Edit</a> |
+                <a href="index.php?page=admin-classes-delete&id=<?= $class['id'] ?>" 
+                  onclick="return confirm('Apakah Anda yakin ingin menghapus kelas ini?');">Hapus</a>
             </td>
           </tr>
           <?php endforeach; ?>
