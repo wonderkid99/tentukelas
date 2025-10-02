@@ -56,12 +56,11 @@ switch ($page) {
         else $classController->index();
         break;
 
-    // --- Rute Siswa (Contoh) ---
+    // --- Rute Siswa ---
     case 'student-dashboard':
-        Auth::requireLogin(); // Cukup login saja
-        echo "<h1>Selamat Datang, " . htmlspecialchars($_SESSION['user_name']) . "!</h1>";
-        echo "<p>Ini adalah dashboard siswa.</p>";
-        echo '<a href="index.php?page=logout">Logout</a>';
+        Auth::requireLogin();
+        $classController = new ClassController();
+        $classController->studentIndex();
         break;
 
     case 'register-class': // Untuk memproses pendaftaran
