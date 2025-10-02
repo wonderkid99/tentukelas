@@ -4,7 +4,12 @@ require_once __DIR__ . '/../Core/Auth.php';
 
 class UserController {
     public function register() {
-        // ... (Kode registrasi dari langkah sebelumnya tidak perlu diubah)
+        if (Auth::isLoggedIn()) {
+            // Jika sudah login, redirect ke dashboard yang sesuai
+            $redirectPage = Auth::isAdmin() ? 'admin-dashboard' : 'student-dashboard';
+            header("Location: index.php?page={$redirectPage}");
+            exit;
+        }
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = ['name' => trim($_POST['name']), 'email' => trim($_POST['email']), 'password' => $_POST['password'], 'confirm_password' => $_POST['confirm_password']];
             if (empty($data['name']) || empty($data['email']) || empty($data['password'])) { die('Mohon isi semua kolom.'); }

@@ -4,48 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - TENTUKELAS</title>
-    <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background-color: #f4f4f9; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .card { background-color: #fff; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
-        h1 { text-align: center; color: #333; }
-        .form-group { margin-bottom: 1rem; }
-        label { display: block; margin-bottom: 0.5rem; color: #555; }
-        input[type="email"], input[type="password"] { width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        .btn { width: 100%; padding: 0.75rem; background-color: #007bff; color: white; text-decoration: none; border: none; border-radius: 4px; cursor: pointer; font-size: 1rem; }
-        .register-link { text-align: center; margin-top: 1rem; }
-        .register-link a { color: #007bff; text-decoration: none; }
-        .message { padding: 1rem; margin-bottom: 1rem; border-radius: 4px; text-align: center; }
-        .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
-        .error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div class="card">
-        <h1>Login</h1>
+<body class="bg-gray-50">
 
-        <?php if(isset($_GET['status']) && $_GET['status'] == 'reg_success'): ?>
-            <p class="message success">Registrasi berhasil! Silakan login.</p>
-        <?php endif; ?>
-        <?php if(isset($_GET['error']) && $_GET['error'] == 'invalid_credentials'): ?>
-            <p class="message error">Email atau password salah.</p>
-        <?php endif; ?>
-         <?php if(isset($_GET['status']) && $_GET['status'] == 'logout_success'): ?>
-            <p class="message success">Anda telah berhasil logout.</p>
-        <?php endif; ?>
+    <?php require_once __DIR__ . '/../layouts/navbar.php'; ?>
 
-        <form action="index.php?page=login" method="POST">
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
+    <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 -mt-16">
+        <div class="max-w-md w-full space-y-8 bg-white p-10 rounded-xl shadow-lg">
+            <div>
+                <h2 class="mt-6 text-center text-3xl font-bold text-gray-900">
+                    Login ke Akun Anda
+                </h2>
             </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
+            
+            <?php if(isset($_GET['status']) && $_GET['status'] == 'reg_success'): ?>
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                    <strong class="font-bold">Registrasi berhasil!</strong>
+                    <span class="block sm:inline">Silakan login dengan akun baru Anda.</span>
+                </div>
+            <?php endif; ?>
+            <?php if(isset($_GET['error']) && $_GET['error'] == 'invalid_credentials'): ?>
+                 <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                    <strong class="font-bold">Login Gagal!</strong>
+                    <span class="block sm:inline">Email atau password yang Anda masukkan salah.</span>
+                </div>
+            <?php endif; ?>
+             <?php if(isset($_GET['status']) && $_GET['status'] == 'logout_success'): ?>
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                    <span class="block sm:inline">Anda telah berhasil logout.</span>
+                </div>
+            <?php endif; ?>
+
+            <form class="mt-8 space-y-6" action="index.php?page=login" method="POST">
+                <input type="hidden" name="remember" value="true">
+                <div class="rounded-md shadow-sm -space-y-px">
+                    <div>
+                        <label for="email" class="sr-only">Email</label>
+                        <input id="email" name="email" type="email" autocomplete="email" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" placeholder="Alamat email">
+                    </div>
+                    <div>
+                        <label for="password" class="sr-only">Password</label>
+                        <input id="password" name="password" type="password" autocomplete="current-password" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" placeholder="Password">
+                    </div>
+                </div>
+
+                <div>
+                    <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        Login
+                    </button>
+                </div>
+            </form>
+            <div class="text-sm text-center">
+                <a href="index.php?page=register" class="font-medium text-blue-600 hover:text-blue-500">
+                    Belum punya akun? Daftar di sini
+                </a>
             </div>
-            <button type="submit" class="btn">Login</button>
-        </form>
-        <div class="register-link">
-            <p>Belum punya akun? <a href="index.php?page=register">Daftar di sini</a></p>
         </div>
     </div>
 </body>
