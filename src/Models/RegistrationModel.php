@@ -35,10 +35,6 @@ class RegistrationModel {
         return $stmt->fetchColumn();
     }
 
-    /**
-     * Mendaftarkan user ke kelas dengan Transaction.
-     * Ini penting untuk mencegah race condition (rebutan kuota).
-     */
     public function createRegistration($userId, $classId) {
         try {
             $this->db->beginTransaction();
@@ -99,6 +95,48 @@ class RegistrationModel {
                   ORDER BY c.start_date ASC";
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getClassPopularityData() {
+        $query = "SELECT c.class_name, COUNT(r.id) as registration_count
+                FROM registrations r
+                JOIN classes c ON r.class_id = c.id
+                GROUP BY c.class_name
+                ORDER BY registration_count DESC";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getRegistrationTrendData() {
+        // CAST(registration_date AS DATE) digunakan untuk mengelompokkan berdasarkan hari saja
+        $query = "SELECT CAST(registration_date AS DATE) as registration_day, COUNT(id) as count
+                FROM registrations
+                GROUP BY CAST(registration_date AS DATE)
+                ORDER BY registration_day ASC";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getTotalRegistrations() {
+        $query = "SELECT COUNT(*) FROM registrations";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchColumn();
+    }
+
+    public function getLatestRegistrations($limit = 5) {
+        $query = "SELECT r.registration_date, u.name as user_name, c.class_name 
+                FROM registrations r
+                JOIN users u ON r.user_id = u.id
+                JOIN classes c ON r.class_id = c.id
+                ORDER BY r.registration_date DESC
+                LIMIT :limit";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

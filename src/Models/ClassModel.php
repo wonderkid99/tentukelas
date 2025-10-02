@@ -92,4 +92,11 @@ class ClassModel {
             return false;
         }
     }
+
+    public function getTotalActiveClasses() {
+        $query = "SELECT COUNT(*) FROM classes WHERE end_date > NOW()";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchColumn();
+    }
 }

@@ -41,9 +41,8 @@ class UserController {
 
                 // Redirect berdasarkan peran
                 if ($user['role_name'] === 'admin') {
-                    header('Location: index.php?page=admin-classes');
+                    header('Location: index.php?page=admin-dashboard'); // Mengarahkan ke dashboard
                 } else {
-                    // Nanti kita buat halaman dashboard siswa
                     header('Location: index.php?page=student-dashboard');
                 }
                 exit;

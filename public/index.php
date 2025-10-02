@@ -10,6 +10,7 @@ require_once __DIR__ . '/../src/Core/Auth.php';
 require_once __DIR__ . '/../src/Controllers/ClassController.php';
 require_once __DIR__ . '/../src/Controllers/UserController.php';
 require_once __DIR__ . '/../src/Controllers/RegistrationController.php';
+require_once __DIR__ . '/../src/Controllers/DashboardController.php';
 
 // Router dengan Access Control
 $page = $_GET['page'] ?? 'login'; // Halaman default sekarang adalah login
@@ -73,6 +74,12 @@ switch ($page) {
         Auth::requireLogin();
         $regController = new RegistrationController();
         $regController->myClasses();
+        break;
+
+    case 'admin-dashboard': // TAMBAHKAN RUTE INI
+        Auth::requireAdmin();
+        $dashboardController = new DashboardController();
+        $dashboardController->index();
         break;
 
     default:

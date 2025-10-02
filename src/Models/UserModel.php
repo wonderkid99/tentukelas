@@ -39,12 +39,6 @@ class UserModel {
         }
     }
 
-    /**
-     * Verifikasi login user.
-     * @param string $email
-     * @param string $password
-     * @return mixed User data jika berhasil, false jika gagal.
-     */
     public function loginUser($email, $password) {
         try {
             // Query untuk mendapatkan data user beserta nama rolenya
@@ -66,5 +60,13 @@ class UserModel {
             error_log($e->getMessage());
             return false;
         }
+    }
+    
+    public function getTotalStudents() {
+        // role_id = 2 untuk siswa
+        $query = "SELECT COUNT(*) FROM users WHERE role_id = 2";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchColumn();
     }
 }
