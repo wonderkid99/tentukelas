@@ -110,4 +110,22 @@ class ClassController {
             die('Gagal menghapus kelas.');
         }
     }
+
+        /**
+     * Menampilkan halaman daftar kelas untuk siswa.
+     * (Versi update)
+     */
+    public function studentIndex() {
+        Auth::requireLogin();
+        
+        $classModel = new ClassModel();
+        $classes = $classModel->getAllClasses();
+        
+        // Mengambil data kelas yang sudah diikuti user
+        $regModel = new RegistrationModel();
+        $myClassIds = $regModel->getRegisteredClassIdsByUser($_SESSION['user_id']);
+
+        // Memuat view dan mengirimkan data $classes dan $myClassIds
+        require_once __DIR__ . '/../Views/student/dashboard.php';
+    }
 }
