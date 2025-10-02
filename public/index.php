@@ -11,12 +11,13 @@ require_once __DIR__ . '/../src/Controllers/ClassController.php';
 require_once __DIR__ . '/../src/Controllers/UserController.php';
 require_once __DIR__ . '/../src/Controllers/RegistrationController.php';
 require_once __DIR__ . '/../src/Controllers/DashboardController.php';
+require_once __DIR__ . '/../src/Controllers/HomeController.php';
 
 // Router dengan Access Control
-$page = $_GET['page'] ?? 'login'; // Halaman default sekarang adalah login
+$page = $_GET['page'] ?? 'home'; // Halaman default sekarang adalah login
 
 // Halaman publik yang bisa diakses tanpa login
-$public_pages = ['login', 'register'];
+$public_pages = ['login', 'register', 'home'];
 
 // Jika halaman yang diminta bukan halaman publik dan user belum login, paksa ke halaman login
 if (!in_array($page, $public_pages) && !Auth::isLoggedIn()) {
@@ -26,6 +27,10 @@ if (!in_array($page, $public_pages) && !Auth::isLoggedIn()) {
 
 switch ($page) {
     // --- Rute Publik ---
+    case 'home':
+        $homeController = new HomeController();
+        $homeController->index();
+        break;
     case 'login':
         $userController = new UserController();
         $userController->login();

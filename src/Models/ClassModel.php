@@ -11,7 +11,16 @@ class ClassModel {
 
     public function getAllClasses() {
         try {
-            $query = "SELECT * FROM classes ORDER BY created_at DESC";
+            $query = "SELECT 
+                        c.*, 
+                        (c.quota - (SELECT COUNT(*) FROM registrations WHERE class_id = c.id)) AS remaining_quota
+                    FROM 
+                        classes c
+                    WHERE
+                        c.end_date > NOW()
+                    ORDER BY 
+                        c.start_date ASC";
+
             $stmt = $this->db->prepare($query);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -78,6 +87,22 @@ class ClassModel {
         } catch (PDOException $e) {
             error_log("Gagal update kelas: " . $e->getMessage());
             return false;
+        }
+    }
+
+    public function getFeaturedClasses($limit = 3) {
+        try {
+            $query = "SELECT * FROM classes 
+                      WHERE end_date > NOW() 
+                      ORDER BY start_date ASC 
+                      LIMIT :limit";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Gagal mengambil featured classes: " . $e->getMessage());
+            return [];
         }
     }
 

@@ -43,6 +43,8 @@
       }
     </style>
   </head>
+<?php require_once __DIR__ . '/../../layouts/navbar.php'; ?>
+
   <body>
     <div class="container">
       <div class="header">

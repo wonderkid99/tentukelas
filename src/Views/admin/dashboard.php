@@ -27,8 +27,18 @@
         @media (max-width: 992px) {
             .charts-grid { grid-template-columns: 1fr; }
         }
+        .charts-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; margin-top: 3rem; }
+
+        /* CSS BARU UNTUK WADAH GRAFIK */
+        .chart-container {
+            position: relative;
+            height: 400px; /* Memberikan tinggi yang pasti untuk grafik */
+            width: 100%;
+        }
     </style>
 </head>
+<?php require_once __DIR__ . '/../layouts/navbar.php'; ?>
+
 <body>
 <div class="admin-wrapper">
     <aside class="sidebar"></aside>
@@ -39,11 +49,15 @@
         <div class="charts-grid">
             <div class="card">
                 <h3>Tren Pendaftaran Harian</h3>
-                <canvas id="registrationTrendChart"></canvas>
+                <div class="chart-container">
+                    <canvas id="registrationTrendChart"></canvas>
+                </div>
             </div>
             <div class="card">
                 <h3>Popularitas Kelas</h3>
-                <canvas id="classPopularityChart"></canvas>
+                <div class="chart-container">
+                    <canvas id="classPopularityChart"></canvas>
+                </div>
             </div>
         </div>
 

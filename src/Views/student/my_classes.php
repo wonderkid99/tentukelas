@@ -18,16 +18,9 @@
     </style>
 </head>
 <body>
+<?php require_once __DIR__ . '/../layouts/navbar.php'; ?>
 
 <div class="container">
-    <div class="header">
-        <h1>TENTUKELAS</h1>
-        <nav>
-            <a href="index.php?page=student-dashboard">Semua Kelas</a>
-            <a href="index.php?page=my-classes" class="active">Kelas Saya</a>
-            <a href="index.php?page=logout" class="logout">Logout</a>
-        </nav>
-    </div>
 
     <h2>Kelas yang Anda Ikuti</h2>
     <div class="class-list">
