@@ -56,7 +56,7 @@ Prasyarat: XAMPP (dengan PHP 8+, MySQL), Composer, Git.
 
 7. Akses proyek melalui http://localhost/tentukelas/public/.
 
-## 1. Hasil Unit Testing
+## Hasil Unit Testing
 
 Pengujian unit dilakukan pada komponen-komponen kritis di level Model untuk memastikan logika pemrosesan data berjalan dengan benar.
 
@@ -71,7 +71,7 @@ OK (1 test, 4 assertions)
 
 ---
 
-## 2. Hasil End-to-End (E2E) Testing Manual
+## Hasil End-to-End (E2E) Testing Manual
 
 Pengujian E2E dilakukan dengan mensimulasikan alur kerja pengguna secara lengkap dari awal hingga akhir.
 
