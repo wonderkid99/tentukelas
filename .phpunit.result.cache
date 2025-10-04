@@ -1,0 +1,1 @@
+{"version":2,"defects":[],"times":{"ClassModelTest::testCanCreateClass":0.028,"ClassModelTest::testCanGetClassById":0.005,"ClassModelTest::testCreateAndGetClass":0.01}}
